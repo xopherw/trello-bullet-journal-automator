@@ -4,9 +4,8 @@ from trello_func import *
 while(True):
     
     # get Bullet Journal team board and id information for quick processing
-    bullet_journal = [{'name': i.get('name'), 'board' : i.get('id'), 'list' : viewLists(i.get('id'))} for i in viewBoards() if(i.get('idOrganization') == '600062e4ff8dbe380e403bbe')]
+    bullet_journal = [{'name': i.get('name'), 'board' : i.get('id'), 'list' : viewLists(i.get('id'))} for i in viewBoards() if(i.get('idOrganization') == 'YOUR_TRELLO_TEAM_ID_FROM_TRELLO_API')]
     
-    # get date NOTE: Like seriously Chris, please get one...
     date = dt.datetime.now()  
 
     if(date.year == int(bullet_journal[-1].get('name'))):
@@ -21,4 +20,4 @@ while(True):
     else:
         newBoard(date)
 
-    time.sleep(10)
+    time.sleep(10) #NOTE: YOU CAN SET ANY TIME INTERVAL YOU WANT
