@@ -20,6 +20,7 @@ class trelloURLS:
 
     def create_list_url(self): return f"https://api.trello.com/1/boards/{self}/lists"
 
+
 ##--------FUNCTIONS--------##
 
 # view all existing boards
@@ -52,7 +53,7 @@ def createBoard(name):
         'token' : constant['token'],    
         'name' :name,
         'defaultLists' : 'false',
-        'idOrganization' : 'YOUR_TRELLO_TEAM', # TRELLO TEAM CAN BE FOUND ON TRELLO API UNDER [idOrganization]
+        'idOrganization' : '600062e4ff8dbe380e403bbe',
     }
     requests.post(trelloURLS.create_board_url(), params=params)
 
@@ -109,7 +110,7 @@ def newBoard(date):
     createBoard(str(date.year)) 
 
     # update board to get board ID, then create list
-    idBoard = [i for i in viewBoards() if(i.get('idOrganization') == 'YOUR_TRELLO_TEAM') ][-1].get('id')
+    idBoard = [i for i in viewBoards() if(i.get('idOrganization') == '600062e4ff8dbe380e403bbe') ][-1].get('id')
     createList(idBoard, switchMonth(date.month))
 
 
@@ -119,19 +120,26 @@ def newBoard(date):
 
     # update board to get card ID and previous checklist ID in the next line, then create checklist from previous board
     idCard = viewCards(idList)[-1].get('id')
-    idChecklist = viewCards(viewLists([i for i in viewBoards() if(i.get('idOrganization') == 'YOUR_TRELLO_TEAM')][-2].get('id'))[-1].get('id'))[-1].get('idChecklists')[-1]
+    idChecklist = viewCards(viewLists([i for i in viewBoards() if(i.get('idOrganization') == '600062e4ff8dbe380e403bbe')][-2].get('id'))[-1].get('id'))[-1].get('idChecklists')[-1]
     createCheckList(idCard, idChecklist)
 
 def newList(date):
-    idBoard = [i for i in viewBoards() if(i.get('idOrganization') == 'YOUR_TRELLO_TEAM') ][-1].get('id')
-    createList(idBoard, switchMonth(date.month))
+    idBoard = [i for i in viewBoards() if(i.get('idOrganization') == '600062e4ff8dbe380e403bbe') ][-1].get('id')
+    createList(idBoard, switchMonth(date.month))    # create new list of the month
 
+    # update value
+    bullet_journal = [{'name': i.get('name'), 'board' : i.get('id'), 'list' : viewLists(i.get('id'))} for i in viewBoards() if(i.get('idOrganization') == '600062e4ff8dbe380e403bbe')]
+    
+    createCard(bullet_journal[-1].get('list')[1].get('id'), f'Day {date.day}')   # create new Card
+    
+    #create new list
+    createCheckList(viewCards(bullet_journal[-1].get('list')[-1].get('id'))[-1].get('id')  , viewCards(bullet_journal[-1].get('list')[-2].get('id'))[-1].get('idChecklists')[-1])
+        
 def newCard(date):
-    idBoard = [i for i in viewBoards() if(i.get('idOrganization') == 'YOUR_TRELLO_TEAM') ][-1].get('id')
+    idBoard = [i for i in viewBoards() if(i.get('idOrganization') == '600062e4ff8dbe380e403bbe') ][-1].get('id')
     idList = viewLists(idBoard)[-1].get('id')
     createCard(idList, f"Day {date.day}")
 
     idCard = viewCards(idList)[-1].get('id')
-    idChecklist = viewCards(viewLists([i for i in viewBoards() if(i.get('idOrganization') == 'YOUR_TRELLO_TEAM')][-1].get('id'))[-1].get('id'))[-2].get('idChecklists')[-1]
+    idChecklist = viewCards(viewLists([i for i in viewBoards() if(i.get('idOrganization') == '600062e4ff8dbe380e403bbe')][-1].get('id'))[-1].get('id'))[-2].get('idChecklists')[-1]
     createCheckList(idCard, idChecklist)
-
