@@ -1,6 +1,6 @@
 import datetime as dt
 from trello_func import *
-i = 1
+
 while(True):
     try:
         # get Bullet Journal team board and id information for quick processing
