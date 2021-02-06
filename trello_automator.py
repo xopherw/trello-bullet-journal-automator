@@ -1,4 +1,4 @@
-import time, datetime as dt
+import datetime as dt
 from trello_func import *
 i = 1
 while(True):
