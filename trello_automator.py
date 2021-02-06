@@ -20,7 +20,7 @@ while(True):
 
         time.sleep(5)
     
-    except Exception:
+    except Exception as e:
         print("Attempt to reconncet, please hold...\n")
         print(e)
         time.sleep(5)
