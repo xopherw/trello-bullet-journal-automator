@@ -21,5 +21,6 @@ while(True):
         time.sleep(5)
     
     except Exception:
-        print("Attempt to reconncet, please hold...")
+        print("Attempt to reconncet, please hold...\n")
+        print(e)
         time.sleep(5)
