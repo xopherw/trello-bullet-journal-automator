@@ -24,31 +24,31 @@ class trelloURLS:
 # view all existing boards
 def viewBoards():
     params = {
-    'key': os.getenv['key'],
-    'token': os.getenv['token'],
+    'key': os.getenv('key'),
+    'token': os.getenv('token'),
 }
     return json.loads(requests.get(trelloURLS.view_boards_url(), params=params).text)
 
 # view all existing lists from a board
 def viewLists(idBoard):
     params = {
-    'key': os.getenv['key'],
-    'token': os.getenv['token'],
+    'key': os.getenv('key'),
+    'token': os.getenv('token'),
 }
     return json.loads(requests.get(trelloURLS.view_lists_url(idBoard), params=params).text)
 
 def viewCards(idList):
     params = {
-    'key': os.getenv['key'],
-    'token': os.getenv['token'],
+    'key': os.getenv('key'),
+    'token': os.getenv('token'),
 }
     return json.loads(requests.get(trelloURLS.view_cards_url(idList), params=params).text)
 
 # create board from Trello organization ID, also add name. NOTE: only for Bullter Journal team
 def createBoard(name):
     params = {
-        'key' : os.getenv['key'],
-        'token' : os.getenv['token'],    
+        'key' : os.getenv('key'),
+        'token' : os.getenv('token'),    
         'name' :name,
         'defaultLists' : 'false',
         'idOrganization' : '600062e4ff8dbe380e403bbe',
@@ -59,8 +59,8 @@ def createBoard(name):
 # create list from Trello board ID, also add name
 def createList(idBoard, name):
     params = {
-        'key' : os.getenv['key'],
-        'token' : os.getenv['token'],    
+        'key' : os.getenv('key'),
+        'token' : os.getenv('token'),    
         'name' :name,
         'pos' : 'bottom'
     }
@@ -70,10 +70,10 @@ def createList(idBoard, name):
 # create card from Trello list ID, also add name
 def createCard(idList, name):
     params = {
-        'key' : os.getenv['key'],
-        'token' : os.getenv['token'],    
+        'key' : os.getenv('key'),
+        'token' : os.getenv('token'),    
         'idList' : idList,
-        'desc' : os.getenv['desc'],
+        'desc' : os.getenv('desc'),
         'name' :name
     }
     requests.post(trelloURLS.create_card_url(), params=params)
@@ -81,8 +81,8 @@ def createCard(idList, name):
 # create checklist to a card with card ID, and copy checlist from other checklist ID
 def createCheckList(idCard, idChecklistSource):
     params = {
-        'key' : os.getenv['key'],
-        'token' : os.getenv['token'],    
+        'key' : os.getenv('key'),
+        'token' : os.getenv('token'),    
         'idChecklistSource' : idChecklistSource
     }
     requests.post(trelloURLS.create_checklist_url(idCard), params=params)
