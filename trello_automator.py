@@ -1,12 +1,15 @@
 import datetime as dt, time
+from dateutil import tz
 from trello_func import *
+
+asia = tz.gettz("Asia/Singapore")
 
 while(True):
     try:
         # get Bullet Journal team board and id information for quick processing
         bullet_journal = [{'name': i.get('name'), 'board' : i.get('id'), 'list' : viewLists(i.get('id'))} for i in viewBoards() if(i.get('idOrganization') == '600062e4ff8dbe380e403bbe')]
         
-        date = dt.datetime.now()  
+        date = dt.datetime.now(tz=asia)  
 
         if(date.year == int(bullet_journal[-1].get('name'))):
 
