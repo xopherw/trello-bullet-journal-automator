@@ -8,7 +8,7 @@ while(True):
         
         date = dt.datetime.now()  
 
-        if(datex.year == int(bullet_journal[-1].get('name'))):
+        if(date.year == int(bullet_journal[-1].get('name'))):
 
             if(switchMonth(date.month) != bullet_journal[-1].get('list')[-1].get('name')): 
                 newList(date)   
